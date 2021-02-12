@@ -6,10 +6,12 @@
 #include <arm_compute/runtime/NEON/functions/NEActivationLayer.h>
 #include <arm_compute/runtime/NEON/functions/NEElementwiseUnaryLayer.h>
 #include <arm_compute/runtime/NEON/functions/NEFloor.h>
+#include <arm_compute/runtime/NEON/functions/NEPReluLayer.h>
 #include <ngraph/runtime/reference/hsigmoid.hpp>
 #include <ngraph/runtime/reference/hard_sigmoid.hpp>
 #include <ngraph/runtime/reference/selu.hpp>
 #include <ngraph/runtime/reference/gelu.hpp>
+#include <ngraph/runtime/reference/prelu.hpp>
 #include "arm_converter/arm_converter.hpp"
 
 namespace ArmPlugin {
@@ -35,10 +37,19 @@ template<> Converter::Conversion::Ptr Converter::Convert(const opset::Relu& node
 }
 
 template<> Converter::Conversion::Ptr Converter::Convert(const opset::PRelu& node) {
-    float a = dynamic_cast<const opset::Constant&>(
-                *(node.input_value(1).get_node())).get_vector<float>()[0];
-    arm_compute::ActivationLayerInfo info(arm_compute::ActivationLayerInfo::ActivationFunction::LEAKY_RELU, a);
-    return ConvertActivation(node, info, this);
+    // auto coeffs = std::dynamic_pointer_cast<opset::Constant>(node.input_value(1).get_node_shared_ptr());
+    // if (!coeffs || coeffs->cast_vector<float>().size() > 1) {
+    //     if (node.input(0).get_element_type() != ngraph::element::f32) {
+    //         THROW_IE_EXCEPTION << "Unsupported Type: " << node.get_element_type();
+    //     }
+    //     auto func = ngraph::runtime::reference::prelu<float>;
+    //     return MakeConversion(func, node.input(0), node.input(1), node.output(0), node.get_input_shape(0), node.get_input_shape(1));
+    // }
+
+    // float a = coeffs->cast_vector<float>()[0];
+    // arm_compute::ActivationLayerInfo info(arm_compute::ActivationLayerInfo::ActivationFunction::LEAKY_RELU, a);
+    // return ConvertActivation(node, info, this);
+    return MakeConversion<arm_compute::NEPReluLayer>(node.input(0), node.input(1), node.output(0));
 }
 
 template<> Converter::Conversion::Ptr Converter::Convert(const opset::Abs& node) {
