@@ -37,18 +37,6 @@ template<> Converter::Conversion::Ptr Converter::Convert(const opset::Relu& node
 }
 
 template<> Converter::Conversion::Ptr Converter::Convert(const opset::PRelu& node) {
-    // auto coeffs = std::dynamic_pointer_cast<opset::Constant>(node.input_value(1).get_node_shared_ptr());
-    // if (!coeffs || coeffs->cast_vector<float>().size() > 1) {
-    //     if (node.input(0).get_element_type() != ngraph::element::f32) {
-    //         THROW_IE_EXCEPTION << "Unsupported Type: " << node.get_element_type();
-    //     }
-    //     auto func = ngraph::runtime::reference::prelu<float>;
-    //     return MakeConversion(func, node.input(0), node.input(1), node.output(0), node.get_input_shape(0), node.get_input_shape(1));
-    // }
-
-    // float a = coeffs->cast_vector<float>()[0];
-    // arm_compute::ActivationLayerInfo info(arm_compute::ActivationLayerInfo::ActivationFunction::LEAKY_RELU, a);
-    // return ConvertActivation(node, info, this);
     return MakeConversion<arm_compute::NEPReluLayer>(node.input(0), node.input(1), node.output(0));
 }
 
