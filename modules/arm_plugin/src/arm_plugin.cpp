@@ -44,8 +44,7 @@ using namespace ArmPlugin;
 Plugin::Plugin() {
     _pluginName = "ARM";
 #if IE_THREAD == IE_THREAD_SEQ
-    arm_compute::Scheduler::set(std::make_shared<arm_compute::CPPScheduler>());
-    // arm_compute::Scheduler::set(arm_compute::Scheduler::Type::CPP);
+    arm_compute::Scheduler::set(arm_compute::Scheduler::Type::CPP);
 #else
     arm_compute::Scheduler::set(std::make_shared<IEScheduler>());
 #endif
@@ -58,16 +57,9 @@ Plugin::~Plugin() {
 
 static std::shared_ptr<ngraph::Function> Transform(const std::shared_ptr<const ngraph::Function>& function) {
     auto transformedFunction = ngraph::clone_function(*function);
-    for (auto node : transformedFunction->get_ordered_ops()) {
-        std::cout << node << std::endl;
-    }
-    std::cout << "------------------------------------" << std::endl;
     ngraph::pass::Manager passManager;
     passManager.register_pass<pass::ArmOptimizations>();
     passManager.run_passes(transformedFunction);
-    for (auto node : transformedFunction->get_ordered_ops()) {
-        std::cout << node << std::endl;
-    }
     return transformedFunction;
 }
 
