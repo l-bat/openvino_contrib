@@ -156,27 +156,27 @@ public:
         add_matcher<ConvBiasFusion>();
         add_matcher<GroupConvBiasFusion>();
 
-        add_matcher<ConvSigmoidFusion>();
-        add_matcher<ConvTanhFusion>();
-        add_matcher<ConvReluFusion>();
-        add_matcher<ConvAbsFusion>();
-        add_matcher<ConvPReluFusion>();
-        add_matcher<ConvSqrtFusion>();
-        add_matcher<ConvHSwishFusion>();
-        add_matcher<ConvSoftPlusFusion>();
-        add_matcher<ConvClampFusion>();
-        add_matcher<ConvEluFusion>();
+        // add_matcher<ConvSigmoidFusion>();
+        // add_matcher<ConvTanhFusion>();
+        // add_matcher<ConvReluFusion>();
+        // add_matcher<ConvAbsFusion>();
+        // add_matcher<ConvPReluFusion>();
+        // add_matcher<ConvSqrtFusion>();
+        // add_matcher<ConvHSwishFusion>();
+        // add_matcher<ConvSoftPlusFusion>();
+        // add_matcher<ConvClampFusion>();
+        // add_matcher<ConvEluFusion>();
 
-        add_matcher<GroupConvSigmoidFusion>();
-        add_matcher<GroupConvTanhFusion>();
-        add_matcher<GroupConvReluFusion>();
-        add_matcher<GroupConvAbsFusion>();
-        add_matcher<GroupConvPReluFusion>();
-        add_matcher<GroupConvSqrtFusion>();
-        add_matcher<GroupConvHSwishFusion>();
-        add_matcher<GroupConvSoftPlusFusion>();
-        add_matcher<GroupConvClampFusion>();
-        add_matcher<GroupConvEluFusion>();
+        // add_matcher<GroupConvSigmoidFusion>();
+        // add_matcher<GroupConvTanhFusion>();
+        // add_matcher<GroupConvReluFusion>();
+        // add_matcher<GroupConvAbsFusion>();
+        // add_matcher<GroupConvPReluFusion>();
+        // add_matcher<GroupConvSqrtFusion>();
+        // add_matcher<GroupConvHSwishFusion>();
+        // add_matcher<GroupConvSoftPlusFusion>();
+        // add_matcher<GroupConvClampFusion>();
+        // add_matcher<GroupConvEluFusion>();
     }
 };
 }  // namespace pass
