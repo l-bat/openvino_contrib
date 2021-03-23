@@ -31,10 +31,15 @@ const std::vector<element::Type> outType = {
     element::i64
 };
 
+const std::vector<InferenceEngine::Precision> netPrecisions = {
+        InferenceEngine::Precision::FP32,
+        InferenceEngine::Precision::FP16
+};
+
 const auto nmsParams = ::testing::Combine(::testing::ValuesIn(inShapeParams),
-                                          ::testing::Combine(::testing::Values(Precision::FP32),
-                                                             ::testing::Values(Precision::I32),
-                                                             ::testing::Values(Precision::FP32)),
+                                          ::testing::Combine(::testing::ValuesIn(netPrecisions),
+                                                             ::testing::Values(InferenceEngine::Precision::UNSPECIFIED),
+                                                             ::testing::Values(InferenceEngine::Precision::UNSPECIFIED)),
                                           ::testing::ValuesIn(maxOutBoxPerClass),
                                           ::testing::ValuesIn(threshold),
                                           ::testing::ValuesIn(threshold),

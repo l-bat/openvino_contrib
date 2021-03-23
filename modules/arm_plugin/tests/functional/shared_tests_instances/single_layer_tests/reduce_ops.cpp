@@ -12,10 +12,11 @@ using namespace LayerTestsDefinitions;
 namespace {
 const std::vector<InferenceEngine::Precision> netPrecisions = {
         InferenceEngine::Precision::FP32,
+        InferenceEngine::Precision::FP16,
 };
 
 const std::vector<std::vector<size_t>> inputShapes = {
-        std::vector<size_t>{5, 6, 10, 11},
+        std::vector<size_t>{2, 3, 4, 5},
 };
 
 const std::vector<std::vector<int>> axes = {
